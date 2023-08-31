@@ -1,7 +1,11 @@
 // index.js
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const path = require('path');
+
+const envPath = path.join(__dirname, '../src/utils/.env');
+dotenv.config({ path: envPath });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +18,7 @@ app.use(express.json());
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  dbName: 'SmartCP-DB'
 })
 .then(() => {
   console.log('Connected to MongoDB');
