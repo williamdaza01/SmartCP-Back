@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
 
-const envPath = path.join(__dirname, '../src/utils/.env');
+const envPath = path.join(__dirname, './src/utils/.env');
 dotenv.config({ path: envPath });
 
 const app = express();
@@ -28,7 +28,7 @@ mongoose.connect(MONGODB_URI, {
 });
 
 // Routes
-const router = require('./Routers/router');
+const router = require('./src/Routers/router');
 app.use('/api', router);
 app.get('/', (req, res) => {
   const filePath = path.join(__dirname, 'template.html');
@@ -44,3 +44,7 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = {
+  app
+}
