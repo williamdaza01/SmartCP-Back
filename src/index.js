@@ -30,6 +30,15 @@ mongoose.connect(MONGODB_URI, {
 // Routes
 const router = require('./Routers/router');
 app.use('/api', router);
+app.get('/', (req, res) => {
+  const filePath = path.join(__dirname, 'template.html');
+  
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).send('El archivo no pudo ser encontrado');
+    }
+  });
+});
 
 // Start the server
 app.listen(PORT, () => {
