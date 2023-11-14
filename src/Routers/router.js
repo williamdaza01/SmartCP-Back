@@ -12,6 +12,7 @@ router.delete('/user/:id', UserController.deleteUser);
 router.post('/login', UserController.authenticateUser);
 router.get('/users', UserController.getUsers);
 router.get('/user/:id', UserController.getUser);
+router.get('/userbyemail/:email', UserController.getUsersByEmail);
 
 router.post('/squre', SquareController.createSquare);
 router.put('/square/:id', SquareController.updatdeSquare);
@@ -24,6 +25,7 @@ router.put('/station/:id', StationController.updateStation);
 router.delete('/station/:id', StationController.deleteStation);
 router.get('/station/:id', StationController.getStation);
 router.get('/stations', StationController.getStations);
+router.get('/stationbysquare/:id', StationController.getStationBySquare);
 
 router.post('/reservation', ReservationController.createReserve);
 router.get('/reservations', ReservationController.getReserves);

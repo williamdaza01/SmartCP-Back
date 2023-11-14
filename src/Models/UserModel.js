@@ -1,17 +1,18 @@
 // Models/UserModel.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   id: String,
+  type: String,
   doc: String,
   name: String,
   lastname: String,
-  address: String,
-  age: Number,
+  age: Date,
   email: String,
   password: String,
   phone: String,
-  huella: String,
+  isAdmin: Boolean,
+  huella: { type: String, require: false },
 });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model("Users", userSchema);

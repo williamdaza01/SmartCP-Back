@@ -32,7 +32,6 @@ const createUser = async (req, res) => {
       doc: userData.doc,
       name: userData.name,
       lastname: userData.lastname,
-      address: userData.address,
       age: userData.age,
       email: userData.email,
       phone: userData.phone,
@@ -110,7 +109,7 @@ const authenticateUser = async (req, res) => {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
-    res.status(200).json({ message: "Inicio de sesión exitoso", isLogged: true });
+    res.status(200).json({ message: "Inicio de sesión exitoso", isLogged: true, user: user.id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al autenticar usuario" });
@@ -147,11 +146,24 @@ const getUsers = async (req, res) => {
 
 }
 
+const getUsersByEmail = async (req, res) => {
+  try {
+    const users = await User.findOne({email: req.params.email});
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener usuarios" });
+  }
+
+}
+
 module.exports = {
   createUser,
   deleteUser,
   updateUser,
   authenticateUser,
   getUser,
-  getUsers
+  getUsers,
+  getUsersByEmail
 };

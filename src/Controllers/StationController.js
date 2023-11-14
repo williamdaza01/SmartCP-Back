@@ -15,24 +15,36 @@ const createStation = async (req, res) => {
 
 const getStations = async (req, res) => {
   try {
-    const stations = await Station.find();
+    const stations = await Station.find().populate({ path:'squares', model: 'Square' }).lean();
     res.status(200).json(stations);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error al obtener estaciones" });
+    res.status(500).json({ error: "Error al obtener estaciones " + error });
   }
 };
 
 const getStation = async (req, res) => {
   const { id } = req.params;
   try {
-    const station = await Station.findById(id);
+    const station = await Station.findById(id).populate({ path:'squares', model: 'Square' });
     res.status(200).json(station);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al obtener estación" });
   }
 };
+
+const getStationBySquare = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const stations = await Station.find({ squares: id }).populate('squares');
+    
+    res.status(200).json(stations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener estación" });
+  }
+}
 
 const updateStation = async (req, res) => {
   const { id } = req.params;
@@ -65,4 +77,5 @@ module.exports = {
   getStation,
   updateStation,
   deleteStation,
+  getStationBySquare
 };
